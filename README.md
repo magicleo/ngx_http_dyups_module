@@ -189,6 +189,28 @@ host2
 server 127.0.0.1:8089
 ```
 
+## API
+```c
+extern ngx_flag_t ngx_http_dyups_api_enable;
+ngx_int_t ngx_dyups_update_upstream(ngx_str_t *name, ngx_buf_t *buf,
+    ngx_str_t *rv);
+ngx_int_t ngx_dyups_delete_upstream(ngx_str_t *name, ngx_str_t *rv);
+```
+
+## Lua API Example
+```lua
+content_by_lua '
+    local dyups = require "ngx.dyups"
+
+    local status, rv = dyups.update("test", [[server 127.0.0.1:8088;]]);
+    ngx.print(status, rv)
+
+    status, rv = dyups.delete("test")
+    ngx.print(status, rv)
+';
+
+```
+
 ## Change Log
 
 ### RELEASE V0.2.6
